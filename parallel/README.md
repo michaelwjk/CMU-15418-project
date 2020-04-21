@@ -5,9 +5,8 @@ Parallel graph coloring uses OpenMP.
 ## Usage
 
 ```c
-make
-
-./parallel *num_of_threads* *path_to_graph*
+1. make
+2. ./parallel *num_of_threads* *path_to_graph*
 ```
 
 ## Contributing
