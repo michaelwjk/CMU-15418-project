@@ -38,8 +38,8 @@ graph_t *read_graph(char *fpath) {
             if (index == 0) {
                 i = num;
                 g->vertex[i].id = i;
-                g->vertex[i].is_colored = 0;
-                g->vertex[i].color = -1;
+                g->vertex[i].is_colored = false;
+                g->vertex[i].color = 0;
             } else if (index == 1) {
                 g->vertex[i].degree = num;
                 g->vertex[i].neighbor = (int *)malloc(sizeof(int) * num);
@@ -68,15 +68,15 @@ void outmsg(char *fmt, ...) {
 
 void print_graph(graph_t *g) {
     int i, j;
+    /*
     for (i = 0; i < g->nvertex; i++) {
         for (j = 0; j < g->vertex[i].degree; j++) {
             printf("%d ", g->vertex[i].neighbor[j]);
         }
         printf("\n");
+    }*/
+    for (i = 0; i < g->nvertex; i++) {
+        printf("%d has color %d\n", i, g->vertex[i].color);
     }
-}
 
-void main() {
-    graph_t *g = read_graph("test.txt");
-    print_graph(g);
 }
