@@ -51,7 +51,7 @@ graph_t *read_graph(char *fpath) {
             index++;
         }
     }
-    outmsg("finish read graph\n");
+    outmsg("============== Finish reading graph!!! =============\n\n");
     return g;
 
     
@@ -104,6 +104,7 @@ bool check_color(graph_t *g) {
             max_color = g->vertex[i].color;
     }
 
-    printf("max color = %d\n", max_color);
+    printf("=============  Max color = %d ==============\n\n", max_color);
+    printf("============== Finish checking graph colors, SUCCESS!!! ===============\n\n");
     return true;
 }

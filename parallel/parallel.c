@@ -118,9 +118,9 @@ int main(int argc, char *argv[]) {
 
     duration = stop - start;
 
-    printf("Total running time is %f\n", duration);
+    printf("=============== Total running time is %f =============\n\n", duration);
     
-    printf("%d\n", check_color(g));
+    check_color(g);
 
     return EXIT_SUCCESS;
 }
