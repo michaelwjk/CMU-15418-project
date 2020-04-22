@@ -6,8 +6,8 @@ LDFLAGS= -lm
 
 SOLUTION = parallel
 
-CFILES = parallel.c ../graph/graph.c
-HFILES = ../graph/graph.h
+CFILES = parallel.c ../graph/graph.c ../timer/cycletimer.c
+HFILES = ../graph/graph.h ../timer/cycletimer.h
 
 parallel: $(CFILES) $(HFILES)
 	$(CC) $(CFLAGS) $(OMP) -o parallel $(CFILES) $(LDFLAGS)

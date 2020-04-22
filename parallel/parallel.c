@@ -2,33 +2,15 @@
 #include <omp.h>
 #include "../graph/graph.h"
 #include <stdbool.h> 
+#include <stdio.h>
+#include <time.h>
+#include "../timer/cycletimer.h"
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        outmsg("Usage: please input number of threads and graph file!\n");
-        exit(0);
-    }
-
-    int thread_count = atoi(argv[1]);
-    omp_set_num_threads(thread_count);
-
-    char *fpath = argv[2];
-
-    graph_t *g = read_graph(fpath);
-    if (g == NULL) {
-        outmsg("Invalid graph!\n");
-        exit(0);
-    }
-
-    assign_color(g);
-
-    unsigned char conflicts[g->nvertex];
-    detect_conflicts(g, conflicts);
-
-    solve_conflicts(g, conflicts);
-
-    print_graph(g);
-}
+void assign_color(graph_t *g);
+int get_min_color(graph_t *g, int vid);
+void detect_conflicts(graph_t *g, unsigned char *conflicts);
+void mark_conflict(graph_t *g, int vid, unsigned char *conflicts);
+void solve_conflicts(graph_t *g, unsigned char *conflicts);
 
 void assign_color(graph_t *g) {
     int i;
@@ -97,4 +79,48 @@ void solve_conflicts(graph_t *g, unsigned char *conflicts) {
             g->vertex[i].is_colored = true;
         }
     }
+}
+
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        outmsg("Usage: please input number of threads and graph file!\n");
+        exit(0);
+    }
+    
+    double start, stop;
+
+    int thread_count = atoi(argv[1]);
+    omp_set_num_threads(thread_count);
+
+    char *fpath = argv[2];
+
+    graph_t *g = read_graph(fpath);
+    if (g == NULL) {
+        outmsg("Invalid graph!\n");
+        exit(0);
+    }
+
+    double duration;
+
+    start = currentSeconds();
+    assign_color(g);
+   
+    unsigned char conflicts[g->nvertex];
+    
+    #pragma omp barrier
+    detect_conflicts(g, conflicts);
+
+    #pragma omp barrier
+    solve_conflicts(g, conflicts);
+
+    stop = currentSeconds();
+
+    duration = stop - start;
+
+    printf("Total running time is %f\n", duration);
+    
+    printf("%d\n", check_color(g));
+
+    return EXIT_SUCCESS;
 }

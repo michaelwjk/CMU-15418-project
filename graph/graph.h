@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include <math.h>
 
-#define MAXLINE 20000
+#define MAXLINE 200000
 
 typedef struct {
     int id;

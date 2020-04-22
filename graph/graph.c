@@ -40,6 +40,7 @@ graph_t *read_graph(char *fpath) {
                 g->vertex[i].id = i;
                 g->vertex[i].is_colored = false;
                 g->vertex[i].color = 0;
+
             } else if (index == 1) {
                 g->vertex[i].degree = num;
                 g->vertex[i].neighbor = (int *)malloc(sizeof(int) * num);
@@ -50,7 +51,7 @@ graph_t *read_graph(char *fpath) {
             index++;
         }
     }
-
+    outmsg("finish read graph\n");
     return g;
 
     
@@ -67,7 +68,7 @@ void outmsg(char *fmt, ...) {
 }
 
 void print_graph(graph_t *g) {
-    int i, j;
+    int i;
     /*
     for (i = 0; i < g->nvertex; i++) {
         for (j = 0; j < g->vertex[i].degree; j++) {
@@ -83,16 +84,26 @@ void print_graph(graph_t *g) {
 
 
 bool check_color(graph_t *g) {
-    int i, j;
+    int i, j, max_color = 0;
     for (i = 0; i < g->nvertex; i++) {
-        if (g->vertex[i].color <= 0 || g->vertex[i].is_colored == false)
+
+        if (g->vertex[i].color <= 0 || g->vertex[i].is_colored == false) {
+            printf("vertex %d is not colored.\n", i);
             return false;
+        }
         
         for (j = 0; j < g->vertex[i].degree; j++) {
             int neightbor = g->vertex[i].neighbor[j];
-            if (g->vertex[i].color == g->vertex[neightbor].color)
+            if (g->vertex[i].color == g->vertex[neightbor].color) {
+                printf("vertex %d and vertex %d have same color.\n", i, neightbor);
                 return false;
+            }
         }
+
+        if (g->vertex[i].color > max_color)
+            max_color = g->vertex[i].color;
     }
+
+    printf("max color = %d\n", max_color);
     return true;
 }
