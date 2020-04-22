@@ -80,3 +80,19 @@ void print_graph(graph_t *g) {
     }
 
 }
+
+
+bool check_color(graph_t *g) {
+    int i, j;
+    for (i = 0; i < g->nvertex; i++) {
+        if (g->vertex[i].color <= 0 || g->vertex[i].is_colored == false)
+            return false;
+        
+        for (j = 0; j < g->vertex[i].degree; j++) {
+            int neightbor = g->vertex[i].neighbor[j];
+            if (g->vertex[i].color == g->vertex[neightbor].color)
+                return false;
+        }
+    }
+    return true;
+}
