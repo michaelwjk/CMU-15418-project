@@ -44,7 +44,7 @@ int get_min_color(graph_t *g, int vid) {
 void assign_color(graph_t *g){
     int i;
 	for (i = 0; i < g -> nvertex; i ++){
-		g -> vertex[i].color = get_min_color;
+		g -> vertex[i].color = get_min_color(g, i);
 		g -> vertex[i].is_colored = true;
 	}
 }
