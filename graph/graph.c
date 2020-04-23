@@ -69,13 +69,6 @@ void outmsg(char *fmt, ...) {
 
 void print_graph(graph_t *g) {
     int i;
-    /*
-    for (i = 0; i < g->nvertex; i++) {
-        for (j = 0; j < g->vertex[i].degree; j++) {
-            printf("%d ", g->vertex[i].neighbor[j]);
-        }
-        printf("\n");
-    }*/
     for (i = 0; i < g->nvertex; i++) {
         printf("%d has color %d\n", i, g->vertex[i].color);
     }
