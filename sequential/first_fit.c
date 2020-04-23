@@ -1,5 +1,6 @@
 #include "../graph/graph.h"
 #include <stdbool.h> 
+#include "../timer/cycletimer.h"
 
 int cmpfunc (const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
@@ -7,10 +8,10 @@ int cmpfunc (const void * a, const void * b) {
 
 int get_min_color(graph_t *g, int vid) {
 
-    int count;
+    int count, i;
     vertex_t v = g -> vertex[vid];
     int nb_color_list[v.degree];
-    for (int i = 0; i < v.degree; i++) {
+    for (i = 0; i < v.degree; i++) {
         int nb_id = v.neighbor[i];
         vertex_t nb_v = g -> vertex[nb_id];
         if (nb_v.is_colored){
@@ -30,7 +31,7 @@ int get_min_color(graph_t *g, int vid) {
     } 
     // chech least available color
     // case 1: available color < max(nb_colors)
-    for (int i = 1; i < count; i ++){
+    for (i = 1; i < count; i ++){
     	if (nb_color_list[i] - nb_color_list[i - 1] >= 2){
     		return nb_color_list[i-1] + 1;
     	}
@@ -41,10 +42,46 @@ int get_min_color(graph_t *g, int vid) {
 }
 
 void assign_color(graph_t *g){
-	for (int i = 0; i < g -> nvertex; i ++){
+    int i;
+	for (i = 0; i < g -> nvertex; i ++){
 		g -> vertex[i].color = get_min_color;
 		g -> vertex[i].is_colored = true;
 	}
+}
+
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        outmsg("Usage: please input graph file!\n");
+        exit(0);
+    }
+    
+    double start, end;
+
+    char *fpath = argv[1];
+
+    graph_t *g = read_graph(fpath);
+    if (g == NULL) {
+        outmsg("Invalid graph!\n");
+        exit(0);
+    }
+
+    double duration;
+
+    start = currentSeconds();
+
+    assign_color(g);
+
+    end = currentSeconds();
+
+    duration = end - start;
+
+    printf("=============== Total running time is %f =============\n\n", duration);
+    
+
+    check_color(g);
+
+    return EXIT_SUCCESS;
 }
 
 
