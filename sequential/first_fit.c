@@ -7,8 +7,8 @@ int cmpfunc (const void * a, const void * b) {
 }
 
 int get_min_color(graph_t *g, int vid) {
-
-    int count, i;
+    //printf("Get min color for %d!\n", vid);
+    int count = 0, i;
     vertex_t v = g -> vertex[vid];
     int nb_color_list[v.degree];
     for (i = 0; i < v.degree; i++) {
