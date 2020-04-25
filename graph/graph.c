@@ -67,11 +67,27 @@ void outmsg(char *fmt, ...) {
 	fprintf(stderr, "\n");
 }
 
-void print_graph(graph_t *g) {
-    int i;
+// Show number of vertices, number of edges, max degree, min degree
+void print_graph_info(graph_t *g) {
+    int i, max_degree = 0, min_degree = g->nvertex;
+    long num_edge = 0;
+    
     for (i = 0; i < g->nvertex; i++) {
-        printf("%d has color %d\n", i, g->vertex[i].color);
+        if (g->vertex[i].degree > max_degree)
+            max_degree = g->vertex[i].degree;
+
+        if (g->vertex[i].degree < min_degree)
+            min_degree = g->vertex[i].degree;
+
+        num_edge += g->vertex[i].degree;    
     }
+
+    num_edge = num_edge / 2;
+    printf("======== %d vertices ========\n", g->nvertex);
+    printf("======== %ld edges ========\n", num_edge);
+    printf("======== min degree is %d ========\n", min_degree);
+    printf("======== max degree is %d ========\n\n", max_degree);
+
 
 }
 

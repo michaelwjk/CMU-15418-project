@@ -24,6 +24,6 @@ typedef struct {
 
 graph_t *read_graph(char *fpath);
 void outmsg(char *fmt, ...);
-void print_graph(graph_t *g);
+void print_graph_info(graph_t *g);
 bool check_color(graph_t *g);
 

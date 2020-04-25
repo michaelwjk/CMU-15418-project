@@ -22,8 +22,10 @@ void assign_color(graph_t *g) {
 }
 
 int get_min_color(graph_t *g, int vid) {
+    
     bool color_valid = false;
     int min_color = 0;
+    
 
     while (!color_valid) {
         min_color++;
@@ -31,6 +33,11 @@ int get_min_color(graph_t *g, int vid) {
         int i;
         for (i = 0; i < g->vertex[vid].degree; i++) {
             int neighbor = g->vertex[vid].neighbor[i];
+
+            if (vid == 1249936) {
+                printf("Line 41 = %d ",neighbor);
+            }
+
             if (min_color == g->vertex[neighbor].color) {
                 color_valid = false;
                 break;
@@ -100,6 +107,8 @@ int main(int argc, char *argv[]) {
         outmsg("Invalid graph!\n");
         exit(0);
     }
+
+    print_graph_info(g);
 
     double duration;
 

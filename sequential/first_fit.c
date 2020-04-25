@@ -65,7 +65,8 @@ int main(int argc, char *argv[]) {
         outmsg("Invalid graph!\n");
         exit(0);
     }
-
+    print_graph_info(g);
+    
     double duration;
 
     start = currentSeconds();
