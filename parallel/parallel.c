@@ -34,10 +34,6 @@ int get_min_color(graph_t *g, int vid) {
         for (i = 0; i < g->vertex[vid].degree; i++) {
             int neighbor = g->vertex[vid].neighbor[i];
 
-            if (vid == 1249936) {
-                printf("Line 41 = %d ",neighbor);
-            }
-
             if (min_color == g->vertex[neighbor].color) {
                 color_valid = false;
                 break;
