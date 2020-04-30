@@ -7,6 +7,7 @@
 #include <math.h>
 
 #define MAXLINE 200000
+#define MAX_COLOR 2000
 
 typedef struct {
     int id;
