@@ -38,7 +38,6 @@ int get_min_color(graph_t *g, int vid) {
     }
     // case 2: availble color = max(nb_colors + 1)
     return nb_color_list[count - 1] + 1; 
-
 }
 
 void assign_color(graph_t *g){
